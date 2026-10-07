@@ -7,7 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.0] - 2026-10-07
+## [0.2.0] - 2026-10-07
+
+### Added
+
+- `initialize-transaction` tool: creates a Credo payment and returns the
+  checkout link plus both transaction references. **Opt-in and disabled by
+  default** — the tool is only registered when `CREDO_MCP_ALLOW_WRITES=true`,
+  and is annotated `destructiveHint` for careful AI clients.
+- New `allow_writes` config key (`CREDO_MCP_ALLOW_WRITES` env) and expanded
+  security documentation in the README.
+
+## [0.1.0] - 2026-10-06
 
 ### Added
 

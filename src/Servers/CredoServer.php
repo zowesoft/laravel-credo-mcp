@@ -10,23 +10,23 @@ use Laravel\Mcp\Server\Attributes\Name;
 use Laravel\Mcp\Server\Attributes\Version;
 use Laravel\Mcp\Server\Prompt;
 use Laravel\Mcp\Server\Tool;
+use ZoweSoft\LaravelCredoMcp\Tools\InitializeTransactionTool;
 use ZoweSoft\LaravelCredoMcp\Tools\VerifyTransactionTool;
 use ZoweSoft\LaravelCredoMcp\Tools\VerifyWebhookSignatureTool;
 
 /**
  * MCP server exposing read-only Credo payment gateway capabilities.
  *
- * Every tool in this server is read-only and safe to connect to any AI
- * client. Write operations (initializing payments) are intentionally not
- * exposed yet; they may arrive in a future release behind an explicit
- * opt-in flag.
+ * Every tool is read-only and safe to connect to any AI client, except the
+ * write tool `initialize-transaction`, which is only registered when the
+ * operator sets `CREDO_MCP_ALLOW_WRITES=true`.
  *
  * @see https://docs.credocentral.com Credo developer documentation
  * @see https://laravel.com/docs/mcp Laravel MCP documentation
  */
 #[Name('Credo MCP Server')]
-#[Version('0.1.0')]
-#[Instructions('Read-only access to the Credo payment gateway. Use verify-transaction to confirm payment status by transaction reference, and verify-webhook-signature to validate incoming Credo webhook payloads. This server never moves money.')]
+#[Version('0.2.0')]
+#[Instructions('Access to the Credo payment gateway. Use verify-transaction to confirm payment status by transaction reference, and verify-webhook-signature to validate incoming Credo webhook payloads. The initialize-transaction tool creates real payments and is only available when CREDO_MCP_ALLOW_WRITES=true; prefer read-only tools unless the user explicitly asks to create a payment.')]
 class CredoServer extends Server
 {
     /**
@@ -37,6 +37,7 @@ class CredoServer extends Server
     protected array $tools = [
         VerifyTransactionTool::class,
         VerifyWebhookSignatureTool::class,
+        InitializeTransactionTool::class,
     ];
 
     /**

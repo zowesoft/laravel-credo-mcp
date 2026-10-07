@@ -29,4 +29,18 @@ return [
 
     'local_handle' => env('CREDO_MCP_LOCAL_HANDLE', 'credo'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Allow write (payment-creating) tools
+    |--------------------------------------------------------------------------
+    |
+    | Set CREDO_MCP_ALLOW_WRITES=true to expose the `initialize-transaction`
+    | tool, which creates real payments with your configured keys. When false
+    | (the default) the tool is not registered, so AI clients cannot even
+    | discover it.
+    |
+    */
+
+    'allow_writes' => env('CREDO_MCP_ALLOW_WRITES', false),
+
 ];

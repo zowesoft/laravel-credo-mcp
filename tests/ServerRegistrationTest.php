@@ -4,6 +4,7 @@ use Laravel\Mcp\Facades\Mcp;
 use Laravel\Mcp\Server\Registrar;
 use ZoweSoft\LaravelCredoMcp\CredoMcpServiceProvider;
 use ZoweSoft\LaravelCredoMcp\Servers\CredoServer;
+use ZoweSoft\LaravelCredoMcp\Tools\InitializeTransactionTool;
 use ZoweSoft\LaravelCredoMcp\Tools\VerifyTransactionTool;
 use ZoweSoft\LaravelCredoMcp\Tools\VerifyWebhookSignatureTool;
 
@@ -28,11 +29,22 @@ it('exposes both read-only tools with annotations', function () {
 
     expect($tools)->toContain(VerifyTransactionTool::class, VerifyWebhookSignatureTool::class);
 
-    foreach ($tools as $toolClass) {
+    foreach ([VerifyTransactionTool::class, VerifyWebhookSignatureTool::class] as $toolClass) {
         $tool = new $toolClass;
 
         expect($tool->annotations())->toHaveKey('readOnlyHint', true)
             ->and($tool->toArray()['name'])->not->toBeEmpty()
             ->and($tool->toArray()['description'])->not->toBeEmpty();
     }
+});
+
+it('registers the write tool only after opting in', function () {
+    config(['laravel-credo-mcp.allow_writes' => true]);
+
+    $tool = new InitializeTransactionTool;
+
+    expect((new ReflectionClass(CredoServer::class))->getDefaultProperties()['tools'])->toContain(InitializeTransactionTool::class)
+        ->and($tool->shouldRegister())->toBeTrue()
+        ->and($tool->annotations())->toHaveKey('destructiveHint', true)
+        ->and($tool->annotations())->not->toHaveKey('readOnlyHint');
 });
