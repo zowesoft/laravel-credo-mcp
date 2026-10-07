@@ -24,6 +24,8 @@ The package registers a **local (stdio) MCP server** under the handle `credo` au
 
 ## Connecting an AI client
 
+> 📖 **Full walkthrough:** [Connect the Credo MCP server to Claude Desktop](docs/claude-desktop.md) — including Windows/macOS config examples and how to enable the write gate safely.
+
 Run the server with Laravel MCP's local server command:
 
 ```bash
