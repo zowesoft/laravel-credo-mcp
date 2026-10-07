@@ -1,0 +1,67 @@
+{
+    "name": "zowesoft/laravel-credo-mcp",
+    "description": "An MCP (Model Context Protocol) server for the Credo payment gateway, powered by zowesoft/laravel-credo.",
+    "keywords": [
+        "laravel",
+        "credo",
+        "credocentral",
+        "mcp",
+        "model-context-protocol",
+        "ai",
+        "payments",
+        "nigeria"
+    ],
+    "homepage": "https://github.com/zowesoft/laravel-credo-mcp",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zowesoft",
+            "homepage": "https://zowesoft.com",
+            "role": "Owner"
+        },
+        {
+            "name": "Ifeanyichukwu John",
+            "email": "Ifeanyichukwujohn70@gmail.com",
+            "role": "Maintainer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/contracts": "^11.45.3|^12.41.1|^13.0",
+        "laravel/mcp": "^1.0",
+        "zowesoft/laravel-credo": "^1.0"
+    },
+    "require-dev": {
+        "guzzlehttp/guzzle": "^7.8",
+        "laravel/pint": "^1.20",
+        "orchestra/testbench": "^10.8",
+        "pestphp/pest": "^3.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZoweSoft\\LaravelCredoMcp\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZoweSoft\\LaravelCredoMcp\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ZoweSoft\\LaravelCredoMcp\\CredoMcpServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
